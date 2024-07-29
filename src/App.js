@@ -5,6 +5,12 @@ import "./App.css";
 function App() {
   const [isChecked, setIsChecked] = useState(false);
   const [page, setPage] = useState(1);
+  const [name, setNameValue] = useState("");
+  const [phone, setPhoneValue] = useState("");
+  const [email, setEmailValue] = useState("");
+  const [birthday, setBDValue] = useState("2000-01-01");
+  const [identityNo, setIdentityNoValue] = useState("");
+  const [gender, setGenderValue] = useState(true);
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
@@ -16,10 +22,44 @@ function App() {
     else setPage(2);
   };
 
+  const handleButtonClick2 = async (event) => {
+    event.preventDefault();
+
+    if (!(name && phone && email && birthday && gender)) {
+      alert("請填寫所有欄位");
+      return;
+    }
+    try {
+      const url = "https://metadata.moaifamily.io/client"; // Replace with your actual URL
+      const dataToSend = {
+        name,
+        phone,
+        email,
+        birthday,
+        idNo: identityNo,
+        gender,
+      };
+      const options = {
+        method: "POST", // Specify method
+        headers: {
+          "Content-Type": "application/json", // Set appropriate content type
+          // Include any other headers required by the API
+        },
+        body: JSON.stringify(dataToSend), // Convert JS object to JSON string
+      };
+
+      const response = await fetch(url, options);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+    } catch (error) {
+      console.error("Posting data failed:", error);
+    }
+  };
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         {page === 1 && (
           <div>
             <p>免責聲明與同意書</p>
@@ -88,7 +128,6 @@ function App() {
         )}
         {page === 2 && (
           <div className="py-5">
-            second page
             <form className="w-full max-w-lg">
               <div className="flex flex-wrap -mx-3 mb-6">
                 <div className="w-full px-3 mb-6 md:mb-0">
@@ -99,13 +138,18 @@ function App() {
                     姓名
                   </label>
                   <input
-                    className="text-black appearance-none block w-full bg-gray-200  border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                    className="text-black appearance-none block w-full bg-gray-200  border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                     id="grid-first-name"
                     type="text"
+                    value={name}
+                    onChange={(event) => {
+                      setNameValue(event.target.value);
+                    }}
+                    required
                   />
-                  <p className="text-red-500 text-xs italic">
+                  {/* <p className="text-red-500 text-xs italic">
                     Please fill out this field.
-                  </p>
+                  </p> */}
                 </div>
                 <div className="w-full  px-3">
                   <label
@@ -118,59 +162,86 @@ function App() {
                     className="text-black appearance-none block w-full bg-gray-200  border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     id="grid-last-name"
                     type="text"
+                    value={phone}
+                    onChange={(event) => {
+                      setPhoneValue(event.target.value);
+                    }}
+                    required
                   />
                 </div>
               </div>
               <div className="flex flex-wrap -mx-3 mb-6">
                 <div className="w-full px-3">
-                  <label
-                    className="block tracking-wide mb-2"
-                    for="grid-password"
-                  >
-                    Email
-                  </label>
+                  <label className="block tracking-wide mb-2">Email</label>
                   <input
                     className="text-black appearance-none block w-full bg-gray-200  border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="grid-password"
                     type="text"
+                    value={email}
+                    onChange={(event) => {
+                      setEmailValue(event.target.value);
+                    }}
+                    required
                   />
                 </div>
               </div>
               <div className="flex flex-wrap -mx-3 mb-6">
                 <div className="w-full px-3">
-                  <label
-                    className="block tracking-wid mb-2"
-                    for="grid-password"
-                  >
-                    生日
-                  </label>
+                  <label className="block tracking-wid mb-2">生日</label>
                   <input
                     className="text-black appearance-none block w-full bg-gray-200  border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="grid-password"
-                    type="text"
+                    type="date"
+                    onChange={(event) => {
+                      setBDValue(event.target.value);
+                    }}
+                    value={birthday}
                   />
                 </div>
               </div>
               <div className="flex flex-wrap -mx-3 mb-6">
                 <div className="w-full px-3">
-                  <label
-                    className="block tracking-wid mb-2"
-                    for="grid-password"
-                  >
-                    身分證(選填)
-                  </label>
+                  <label className="block tracking-wid mb-2">身分證</label>
                   <input
                     className="text-black appearance-none block w-full bg-gray-200  border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="grid-password"
                     type="text"
+                    onChange={(event) => {
+                      setIdentityNoValue(event.target.value);
+                    }}
+                    value={identityNo}
                   />
+                </div>
+              </div>
+              <div className="flex flex-wrap -mx-3 mb-6">
+                <div className="w-full px-3">
+                  <label className="block tracking-wid mb-2">性別</label>
+                  <label>
+                    <input
+                      className="mr-2 leading-tight"
+                      type="checkbox"
+                      checked={gender}
+                      onChange={() => {
+                        setGenderValue(true);
+                      }}
+                    />
+                    男
+                  </label>
+                  <label>
+                    <input
+                      className="mr-2 leading-tight"
+                      type="checkbox"
+                      checked={!gender}
+                      onChange={() => {
+                        setGenderValue(false);
+                      }}
+                    />
+                    女
+                  </label>
                 </div>
               </div>
               <div>
                 <button
                   className="bg-sky-500 hover:bg-sky-70 py-1 px-3 rounded-full"
                   type="submit"
-                  onClick={handleButtonClick}
+                  onClick={handleButtonClick2}
                 >
                   送出
                 </button>
