@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ReactLoading from "react-loading";
 import "./App.css";
 
 function padToFour(number) {
@@ -18,6 +19,7 @@ function App() {
   const [identityNo, setIdentityNoValue] = useState("");
   const [gender, setGenderValue] = useState(true);
   const [id, setId] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
@@ -55,7 +57,9 @@ function App() {
         body: JSON.stringify(dataToSend), // Convert JS object to JSON string
       };
 
+      setLoading(true);
       const response = await fetch(url, options);
+      setLoading(false);
       if (!response.ok) {
         alert("錯誤發生請聯繫工作人員");
       }
@@ -256,7 +260,11 @@ function App() {
                   type="submit"
                   onClick={handleButtonClick2}
                 >
-                  送出
+                  {!loading ? (
+                    <p>送出</p>
+                  ) : (
+                    <ReactLoading type="spin" color="#FFFFFF" />
+                  )}
                 </button>
               </div>
             </form>
