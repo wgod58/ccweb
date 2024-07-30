@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ReactLoading from "react-loading";
+import party from "party-js";
 import "./App.css";
 
 function padToFour(number) {
@@ -60,6 +61,7 @@ function App() {
       setLoading(true);
       const response = await fetch(url, options);
       setLoading(false);
+      party.confetti(document.body, { count: party.variation.range(80, 90) });
       if (!response.ok) {
         alert("錯誤發生請聯繫工作人員");
       }
@@ -148,12 +150,7 @@ function App() {
             <form className="w-full max-w-lg">
               <div className="flex flex-wrap -mx-3 mb-6">
                 <div className="w-full px-3 mb-6 md:mb-0">
-                  <label
-                    className="block tracking-wide mb-2"
-                    for="grid-first-name"
-                  >
-                    姓名
-                  </label>
+                  <label className="block tracking-wide mb-2">姓名</label>
                   <input
                     className="text-black appearance-none block w-full bg-gray-200  border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                     id="grid-first-name"
@@ -169,12 +166,7 @@ function App() {
                   </p> */}
                 </div>
                 <div className="w-full  px-3">
-                  <label
-                    className="block tracking-wid mb-2"
-                    for="grid-last-name"
-                  >
-                    電話
-                  </label>
+                  <label className="block tracking-wid mb-2">電話</label>
                   <input
                     className="text-black appearance-none block w-full bg-gray-200  border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     id="grid-last-name"
