@@ -1,0 +1,14 @@
+steps:
+  # - name: "bash"
+  #   args: ["mv", ".env.test", ".env"]
+  # install yarn
+  - name: node:18.12.0
+    entrypoint: yarn
+    args: ['install']
+  # build project
+  - name: node:18.12.0
+    entrypoint: yarn
+    args: ["run", "build"]
+  - name: gcr.io/cloud-builders/gsutil
+    args: ['-m', 'rsync', '-r', '-c', '-d', './build', 'gs://loveydovey.com.tw']
+timeout: 900s

@@ -1,6 +1,12 @@
 import React, { useState } from "react";
-import logo from "./logo.svg";
 import "./App.css";
+
+function padToFour(number) {
+  if (number <= 999) {
+    number = ("00" + number).slice(-3);
+  }
+  return number;
+}
 
 function App() {
   const [isChecked, setIsChecked] = useState(false);
@@ -11,6 +17,7 @@ function App() {
   const [birthday, setBDValue] = useState("2000-01-01");
   const [identityNo, setIdentityNoValue] = useState("");
   const [gender, setGenderValue] = useState(true);
+  const [id, setId] = useState("");
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
@@ -50,8 +57,14 @@ function App() {
 
       const response = await fetch(url, options);
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        alert("錯誤發生請聯繫工作人員");
       }
+      const data = await response.json();
+
+      console.log(data);
+      setId(padToFour(data.id));
+
+      setPage(3);
     } catch (error) {
       console.error("Posting data failed:", error);
     }
@@ -247,6 +260,11 @@ function App() {
                 </button>
               </div>
             </form>
+          </div>
+        )}
+        {page === 3 && (
+          <div className="font-bold text-3xl">
+            <p>您的編號為 {id}</p>
           </div>
         )}
       </header>
