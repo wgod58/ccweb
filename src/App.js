@@ -263,8 +263,11 @@ function App() {
           </div>
         )}
         {page === 3 && (
-          <div className="font-bold text-3xl">
-            <p>您的編號為 {id}</p>
+          <div>
+            <img className="max-w-lg" src="/logo2.png" alt="logo" />
+            <div className="font-bold text-3xl">
+              <p>您的編號為 {id}</p>
+            </div>
           </div>
         )}
       </header>
