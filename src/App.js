@@ -35,7 +35,7 @@ function App() {
   const handleButtonClick2 = async (event) => {
     event.preventDefault();
 
-    if (!(name && phone && email && birthday && gender)) {
+    if (!(name && phone && email && birthday)) {
       alert("請填寫所有欄位");
       return;
     }
