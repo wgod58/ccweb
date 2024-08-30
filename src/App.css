@@ -28,16 +28,20 @@
   color: #61dafb;
 }
 
-.qrcode-container {
+.container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
   margin-top: 10px;
-}
+  margin-bottom: 10px;
+} 
 
-.qrcode-container img {
-  height: 30vmin;
+.img-logo{
+  height:50vh ;
+}
+.img-qrcode {
+  height: 35vmin;
 }
 
 

@@ -264,12 +264,17 @@ function App() {
         )}
         {page === 3 && (
           <div>
-            <img className="max-w-lg" src="/logo2.png" alt="logo" />
+            <div className="container">
+              <img className="img-logo" src="/logo2.png" alt="logo" />
+            </div>
             <div className="font-bold text-3xl">
               <p>您的編號為 {id}</p>
             </div>
-            <div className="qrcode-container">
-              <img class="qrcode" src="/qrcode.png" alt="qrcode" />
+            <div className="container">
+              <img className="img-qrcode" src="/qrcode.png" alt="qrcode" />
+            </div>
+            <div className="font-bold text-3xl">
+              <p>請掃名QR Code加入官方Line</p>
             </div>
           </div>
         )}
