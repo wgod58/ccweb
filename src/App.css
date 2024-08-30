@@ -28,6 +28,24 @@
   color: #61dafb;
 }
 
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25vh;
+  background-color: #E098AE;
+}
+
+.footer-content {
+  text-align: center;
+}
+
+.qrcode {
+  margin-top: 10px;
+  height: 15vh;
+}
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

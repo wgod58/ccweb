@@ -271,6 +271,15 @@ function App() {
           </div>
         )}
       </header>
+      <footer>
+        <div class="footer">
+          <div class="footer-content">
+            <h1>加入Line好友！</h1>
+            <img class="qrcode" src="/qrcode.png" alt="qrcode" />
+          </div>
+        </div>
+      </footer>
+
     </div>
   );
 }
