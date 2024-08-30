@@ -268,6 +268,9 @@ function App() {
             <div className="font-bold text-3xl">
               <p>您的編號為 {id}</p>
             </div>
+            <div className="qrcode-container">
+              <img class="qrcode" src="/qrcode.png" alt="qrcode"  />
+            </div>
           </div>
         )}
       </header>
