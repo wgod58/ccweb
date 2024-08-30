@@ -28,6 +28,7 @@
   color: #61dafb;
 }
 
+<<<<<<< HEAD
 .qrcode-container {
   display: flex;
   justify-content: center;
@@ -39,6 +40,25 @@
 .qrcode-container img {
   height: 30vmin;
 }
+=======
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25vh;
+  background-color: #E098AE;
+}
+
+.footer-content {
+  text-align: center;
+}
+
+.qrcode {
+  margin-top: 10px;
+  height: 15vh;
+}
+
+>>>>>>> origin/main
 
 @keyframes App-logo-spin {
   from {
