@@ -20,6 +20,7 @@ function App() {
   const [identityNo, setIdentityNoValue] = useState("");
   const [gender, setGenderValue] = useState(true);
   const [id, setId] = useState("");
+  const [number, setNumber] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleCheckboxChange = () => {
@@ -69,7 +70,7 @@ function App() {
 
       console.log(data);
       setId(padToFour(data.id));
-
+      setNumber(padToFour(data.number));
       setPage(3);
     } catch (error) {
       console.error("Posting data failed:", error);
@@ -268,7 +269,7 @@ function App() {
               <img className="img-logo" src="/logo2.png" alt="logo" />
             </div>
             <div className="font-bold text-3xl">
-              <p>您的編號為 {id}</p>
+              <p>您的編號為 {number}</p>
             </div>
             <div className="container">
               <img className="img-qrcode" src="/qrcode.png" alt="qrcode" />
