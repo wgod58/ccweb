@@ -271,11 +271,10 @@ function App() {
             <div className="font-bold text-3xl">
               <p>您的編號為 {number}</p>
             </div>
-            <div className="container">
-              <img className="img-qrcode" src="/qrcode.png" alt="qrcode" />
-            </div>
+            <br/>
             <div className="font-bold text-3xl">
-              <p>請掃名QR Code加入官方Line</p>
+              <p>請點擊此連結加入官方Line</p>
+              <a href="https://line.me/R/ti/p/@886ybfkt">https://line.me/R/ti/p/@886ybfkt</a>
             </div>
           </div>
         )}
