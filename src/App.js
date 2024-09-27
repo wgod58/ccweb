@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ReactLoading from "react-loading";
 import party from "party-js";
+import axios from "axios";
 import "./App.css";
 
 function padToFour(number) {
@@ -22,6 +23,10 @@ function App() {
   const [id, setId] = useState("");
   const [number, setNumber] = useState("");
   const [loading, setLoading] = useState(false);
+  const [uploadImageUrl, setUploadImageUrl] = useState("");
+  const [uploadedImage, setUploadedImage] = useState(null); // 新增變數來保存圖片文件
+
+
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
@@ -56,10 +61,20 @@ function App() {
           "Content-Type": "application/json", // Set appropriate content type
           // Include any other headers required by the API
         },
-        body: JSON.stringify(dataToSend), // Convert JS object to JSON string
+        body: JSON.stringify(dataToSend),
       };
-
+      const options_upload_file = {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/octet-stream",
+        },
+        body: uploadedImage 
+      };
+    
       setLoading(true);
+      if (uploadedImage !== null) {
+        await fetch(uploadImageUrl, options_upload_file);
+      }
       const response = await fetch(url, options);
       setLoading(false);
       party.confetti(document.body, { count: party.variation.range(80, 90) });
@@ -76,6 +91,32 @@ function App() {
       console.error("Posting data failed:", error);
     }
   };
+  const handleImageChange = async (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      console.log("File Name:", file.name);
+
+      // 獲取上傳 URL
+      const url = await getUploadUrl(file.name);
+      if (url) {
+        setUploadImageUrl(url); // 更新狀態
+        console.log("Upload Image URL:", url); // 這裡將顯示正確的 URL
+      }
+
+      setUploadedImage(file); // 將上傳的圖片文件存入狀態
+    }
+  };
+
+  const getUploadUrl = async (fileName) => {
+    try {
+      const response = await axios.get(`https://metadata.moaifamily.io/client/1/image?fileName=${fileName}`);
+      return response.data; // 假設這是 URL
+    } catch (error) {
+      console.error("Error Fetching: ", error);
+      return null; // 返回 null 以處理錯誤
+    }
+  };
+
 
   return (
     <div className="App">
@@ -247,6 +288,15 @@ function App() {
                   </label>
                 </div>
               </div>
+              {/* <div className="w-full px-3">
+                <label className="block tracking-wid mb-2">上傳圖片</label>
+                <input
+                  className="text-black appearance-none block w-full bg-gray-200 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                />
+              </div> */}
               <div>
                 <button
                   className="bg-sky-500 hover:bg-sky-70 py-1 px-3 rounded-full"
@@ -271,10 +321,10 @@ function App() {
             <div className="font-bold text-3xl">
               <p>您的編號為 {number}</p>
             </div>
-            <br/>
-            <div className="font-bold text-3xl">
-              <p>請點擊此連結加入官方Line</p>
-              <a href="https://line.me/R/ti/p/@886ybfkt">https://line.me/R/ti/p/@886ybfkt</a>
+            <br />
+            <div className="font-bold text-2xl">
+              <p >請點擊或掃描QRCode加入官方Line</p>
+              <a href="https://line.me/R/ti/p/@886ybfkt" className="lineLogoContainer" ><img className="lineLogo" src="/LoveyDoveyLineLogo.png" alt="Line"></img></a>
             </div>
           </div>
         )}

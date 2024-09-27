@@ -1,3 +1,10 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .App {
   text-align: center;
 }
@@ -22,6 +29,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  overflow: hidden;
 }
 
 .App-link {
@@ -33,13 +41,26 @@
   justify-content: center;
   align-items: center;
   height: 100%;
-  margin-top: 10px;
-  margin-bottom: 10px;
-} 
-
-.img-logo{
-  height:50vh ;
+  /* margin-top: 10px; */
+  /* margin-bottom: 10px; */
 }
+
+.img-logo {
+  height: 50vh;
+}
+
+.lineLogoContainer {
+  text-align: center;
+}
+
+.lineLogo {
+  border-radius: 25px;
+  display: inline-block;
+  max-height: 20vh;
+  height: auto;
+  margin-top: 20px;
+}
+
 .img-qrcode {
   height: 35vmin;
 }
