@@ -324,7 +324,7 @@ function App() {
             <br />
             <div className="font-bold text-2xl">
               <p >請點擊或掃描QRCode加入官方Line</p>
-              <a href="https://line.me/R/ti/p/@886ybfkt" className="lineLogoContainer" ><img className="lineLogo" src="/LoveyDoveyLineLogo.png" alt="Line"></img></a>
+              <a href="https://line.me/R/ti/p/@886ybfkt" className="lineLogoContainer" ><img className="lineLogo" src="/qrcode.png" alt="Line"></img></a>
             </div>
           </div>
         )}
